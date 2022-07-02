@@ -33,6 +33,27 @@ public:
         cout << "Constructor copy > " << this << endl;
     }
 
+    MyClass &operator=(const MyClass &other)
+    {
+        cout << "Opertor running > " << this << endl;
+
+        this->Size = other.Size;
+
+        if (this->data != nullptr)
+        {
+            delete[] this->data;
+        }
+
+        this->data = new int[other.Size];
+
+        for (int i = 0; i < other.Size; i++)
+        {
+            this->data[i] = other.data[i];
+        }
+
+        return *this;
+    }
+
     ~MyClass()
     {
         cout << "Destructor > " << this << endl;
@@ -66,9 +87,10 @@ int main()
     setlocale(LC_ALL, "ru");
 
     MyClass a(12);
-    MyClass b(a);
+    MyClass b(2);
+    MyClass q(9);
 
-    system("pause>nul");
+    a = b = q; // a.operator=(b);
 
     return 0;
 }
